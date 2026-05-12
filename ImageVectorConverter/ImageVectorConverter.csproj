@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+
+    <!-- NuGet Package Properties -->
+    <PackageId>ImageVectorConverter</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Image Vector Converter</Title>
+    <Authors>Your Name</Authors>
+    <Company>Your Company</Company>
+    <Description>A powerful .NET library to convert raster images (PNG, JPG, BMP) into vector graphics (SVG, XAML paths). Supports color and grayscale vectorization with smooth path generation and customizable options.</Description>
+    <PackageProjectUrl>https://github.com/yourusername/ImageVectorConverter</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/yourusername/ImageVectorConverter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>image-vectorization;vector-graphics;svg;xaml;image-conversion;raster-to-vector</PackageTags>
+    <PackageReleaseNotes>Initial release - Support for color and B&amp;W vectorization with smooth path generation.</PackageReleaseNotes>
+   
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Package generation settings -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IncludeSource>true</IncludeSource>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+
+  <!-- Pack these files into the NuGet package root -->
+ 
+
+</Project>
