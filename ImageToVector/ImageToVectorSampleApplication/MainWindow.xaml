@@ -1,0 +1,179 @@
+﻿<Window x:Class="ImageToVector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Image to Vector XAML Converter"
+        Width="1400" Height="750"
+        KeyDown="Window_KeyDown"
+        WindowState="Maximized"
+        Background="#F8F9FA">
+
+    <Window.Resources>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#005A9E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#004578"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#6C757D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a6268"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel Background="#F8F9FA">
+        <!-- Header Section -->
+        <Border DockPanel.Dock="Top" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="20,15">
+            <TextBlock Text="Image to Vector XAML Converter" FontSize="20" FontWeight="Bold" Foreground="#333"/>
+        </Border>
+
+        <!-- Toolbar -->
+        <Border DockPanel.Dock="Top" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="15">
+            <StackPanel Orientation="Vertical">
+                <!-- Row 1: Load/Paste Buttons -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <Button x:Name="LoadImageButton" Content="📁 Load Image" Style="{StaticResource PrimaryButtonStyle}" 
+                            Width="140" Margin="0,0,10,0" Click="LoadImage_Click" ToolTip="Load image from file"/>
+                    <Button x:Name="PasteImageButton" Content="📋 Paste (Ctrl+V)" Style="{StaticResource PrimaryButtonStyle}" 
+                            Width="140" Margin="0,0,10,0" Click="PasteImage_Click" ToolTip="Paste image from clipboard"/>
+                    <Separator Width="1" Background="#E0E0E0" Margin="0,0,10,0"/>
+                    <Button x:Name="CopyOriginalButton" Content="📄 Copy Original" Style="{StaticResource SecondaryButtonStyle}" 
+                            Width="140" Margin="0,0,10,0" Click="CopyOriginal_Click" ToolTip="Copy Original XAML to clipboard"/>
+                    <Button x:Name="CopySmoothButton" Content="📄 Copy Smooth" Style="{StaticResource SecondaryButtonStyle}" 
+                            Width="140" Margin="0,0,10,0" Click="CopySmooth_Click" ToolTip="Copy Smooth XAML to clipboard"/>
+                    <Button x:Name="CopyImageButton" Content="🖼️ Copy Pixels" Style="{StaticResource SecondaryButtonStyle}" 
+                            Width="160" Click="CopyPixels_Click" ToolTip="Copy image as DrawingImage XAML resource — paste into Window.Resources then use as StaticResource"/>
+                </StackPanel>
+
+                <!-- Row 2: Controls -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Size Control -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,60,0">
+                        <TextBlock Text="Size:" FontWeight="SemiBold" Foreground="#333" VerticalAlignment="Center" Width="40"/>
+                        <Button x:Name="SizeMinusButton" Content="−" Style="{StaticResource SecondaryButtonStyle}"
+                                Width="32" Height="32" Padding="0" Click="SizeMinus_Click" 
+                                ToolTip="Decrease size" Margin="0,0,5,0" FontSize="16" FontWeight="Bold"/>
+                        <Slider x:Name="SizeSlider" Minimum="10" Maximum="500" Value="100"
+                                Width="150" VerticalAlignment="Center" TickFrequency="10" IsSnapToTickEnabled="True"
+                                ValueChanged="SizeSlider_ValueChanged" Margin="0,0,5,0"/>
+                        <Button x:Name="SizePlusButton" Content="+" Style="{StaticResource SecondaryButtonStyle}"
+                                Width="32" Height="32" Padding="0" Click="SizePlus_Click"
+                                ToolTip="Increase size" Margin="0,0,10,0" FontSize="16" FontWeight="Bold"/>
+                        <TextBlock x:Name="SizeLabel" Text="100 %" Width="45" Foreground="#666" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Mode Control -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Mode:" FontWeight="SemiBold" Foreground="#333" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <RadioButton x:Name="ColorModeRadio" Content="🎨 Color" IsChecked="True"
+                                     VerticalAlignment="Center" Margin="0,0,15,0" Checked="ModeRadio_Changed" Foreground="#333" FontSize="12"/>
+                        <RadioButton x:Name="BwModeRadio" Content="◑ B&amp;W"
+                                     VerticalAlignment="Center" Checked="ModeRadio_Changed" Foreground="#333" FontSize="12"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Progress Bar -->
+        <Border DockPanel.Dock="Top" Background="#F0F0F0" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="15,8">
+            <DockPanel>
+                <TextBlock x:Name="StatusLabel" DockPanel.Dock="Right" VerticalAlignment="Center" 
+                           Text="Ready" Foreground="#666" FontSize="11" FontWeight="SemiBold" Margin="10,0,0,0"/>
+                <ProgressBar x:Name="ConversionProgressBar" Minimum="0" Maximum="100" Value="0" Height="8"
+                             Visibility="Collapsed" Background="#E0E0E0" Foreground="#007ACC"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content Grid -->
+        <Grid Margin="15" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Column 0: Original Image -->
+            <Border BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Margin="0,0,10,0" Background="#FAFAFA">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Original Image" FontWeight="Bold" Foreground="#333" 
+                               Margin="12,12,12,8" FontSize="13"/>
+                    <Border DockPanel.Dock="Top" Background="#007ACC" Height="2" Margin="0"/>
+                    <Image x:Name="OriginalImage" Stretch="Uniform" Margin="8"/>
+                </DockPanel>
+            </Border>
+
+            <!-- Column 1: Original Vector -->
+            <Border Grid.Column="1" BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Margin="5,0" Background="#FAFAFA">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Original Vector" FontWeight="Bold" Foreground="#333" 
+                               Margin="12,12,12,8" FontSize="13"/>
+                    <Border DockPanel.Dock="Top" Background="#17A2B8" Height="2" Margin="0"/>
+                    <TextBox x:Name="OriginalTextBox" DockPanel.Dock="Bottom" IsReadOnly="True"
+                             AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                             Height="100" FontFamily="Consolas" FontSize="9" Margin="8,5,8,8"
+                             Background="White" Foreground="#333" BorderThickness="0"/>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="8">
+                        <Canvas x:Name="OriginalVectorCanvas" Background="#F9F9F9"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <!-- Column 2: Smooth Vector -->
+            <Border Grid.Column="2" BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="8" Margin="10,0,0,0" Background="#FAFAFA">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Smooth Vector" FontWeight="Bold" Foreground="#333" 
+                               Margin="12,12,12,8" FontSize="13"/>
+                    <Border DockPanel.Dock="Top" Background="#28A745" Height="2" Margin="0"/>
+                    <TextBox x:Name="SmoothTextBox" DockPanel.Dock="Bottom" IsReadOnly="True"
+                             AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                             Height="100" FontFamily="Consolas" FontSize="9" Margin="8,5,8,8"
+                             Background="White" Foreground="#333" BorderThickness="0"/>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="8">
+                        <Canvas x:Name="SmoothVectorCanvas" Background="#F9F9F9"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+    </DockPanel>
+</Window>
