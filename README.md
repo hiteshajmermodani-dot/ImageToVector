@@ -40,5 +40,5 @@ var geoms = result.OriginalGeometries;
 ## Notes
 - Targets: .NET 9 (net9.0-windows) with WPF support.
 - License: MIT
-- Repository: https://github.com/yourusername/ImageVectorConverter
+- Repository: [https://github.com/hiteshajmermodani-dot/ImageToVector]
 - See `RELEASE_NOTES.md` for release details.
