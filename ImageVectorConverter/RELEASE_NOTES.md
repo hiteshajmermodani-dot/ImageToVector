@@ -20,4 +20,4 @@ A NuGet package `ImageVectorConverter.1.0.0.nupkg` is generated from the `ImageV
 ## Notes
 - Project targets .NET 9 (net9.0-windows) and requires Windows/WPF runtime.
 - License: MIT
-- Repository: https://github.com/yourusername/ImageVectorConverter
+- Repository: https://github.com/hiteshajmermodani-dot/ImageToVector
