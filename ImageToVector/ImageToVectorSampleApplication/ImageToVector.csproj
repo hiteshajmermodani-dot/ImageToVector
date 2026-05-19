@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ImageVectorConverter\ImageVectorConverter.csproj" />
+    <ProjectReference Include="..\..\ImageVectorConverter\ImageVectorConverter.csproj" />
   </ItemGroup> 
 
 </Project>

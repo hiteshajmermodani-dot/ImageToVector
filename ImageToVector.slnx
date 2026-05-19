@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="ImageToVectorSampleApplication/ImageToVector.csproj" />
+  <Project Path="ImageToVector/ImageToVectorSampleApplication/ImageToVector.csproj" />
   <Project Path="ImageVectorConverter/ImageVectorConverter.csproj" Id="77b1dcf7-2554-49a8-b961-87ca47c0927d" />
 </Solution>
