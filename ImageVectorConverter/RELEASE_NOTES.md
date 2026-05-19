@@ -1,6 +1,6 @@
 # Release Notes - ImageVectorConverter
 
-## [1.0.0] - 2024-01-XX
+## [1.0.0] - 2026-05-19
 
 ### Added
 - Initial release of ImageVectorConverter

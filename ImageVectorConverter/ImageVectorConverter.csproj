@@ -10,16 +10,17 @@
     <PackageId>ImageVectorConverter</PackageId>
     <Version>1.0.0</Version>
     <Title>Image Vector Converter</Title>
-    <Authors>Your Name</Authors>
-    <Company>Your Company</Company>
+    <Authors>Hitesh Modani</Authors>
+    <Company>Hitesh Modani</Company>
+    <Copyright>Copyright © 2026 Hitesh Modani. All rights reserved.</Copyright>
     <Description>A powerful .NET library to convert raster images (PNG, JPG, BMP) into vector graphics (SVG, XAML paths). Supports color and grayscale vectorization with smooth path generation and customizable options.</Description>
-    <PackageProjectUrl>https://github.com/yourusername/ImageVectorConverter</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/hiteshajmermodani-dot/ImageToVector</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/yourusername/ImageVectorConverter</RepositoryUrl>
+    <RepositoryUrl>https://github.com/hiteshajmermodani-dot/ImageToVector</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>image-vectorization;vector-graphics;svg;xaml;image-conversion;raster-to-vector</PackageTags>
     <PackageReleaseNotes>Initial release - Support for color and B&amp;W vectorization with smooth path generation.</PackageReleaseNotes>
-   
+
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <!-- Package generation settings -->
@@ -33,7 +34,9 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 
-  <!-- Pack these files into the NuGet package root -->
- 
+  <!-- Include README.md in the NuGet package -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
